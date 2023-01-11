@@ -1,0 +1,13 @@
+node {
+    stage('clone java project') {
+    git branch: 'main', credentialsId: 'dcea9c67-35cc-4996-a5bb-44b10d9f9fd5', url: 'https://github.com/balla1234/project01.git'
+    
+    stage('maven install') {
+    sh 'mvn install'
+}
+    stage('build a job') {
+    build 'job3'
+}
+    
+}
+}
