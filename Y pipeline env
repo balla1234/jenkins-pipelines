@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    environment {
+        name = "shivani"
+    }
+
+    stages {
+        stage('Run a Command') {
+            steps {
+                sh """
+                ls
+                date
+                pwd
+                cal 2023
+                """
+                
+            }
+        }    
+        stage('Environmental Variables') {
+            steps {
+               sh 'echo "${BUILD_ID}"'
+               sh 'echo "${name}"'
+            }
+        }    
+        stage('Deploy on Test') {
+            steps {
+                echo 'Deploy on Test'
+            }
+        }    
+        stage('Deploy on Prod') {
+            steps {
+                echo 'Deploy on Prod'
+            } 
+        }
+    }
+}
