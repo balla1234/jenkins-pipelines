@@ -1,0 +1,24 @@
+pipeline{
+    agent any
+    
+    stages{
+        stage('scm'){
+            steps{
+                git branch: 'main', url: 'https://github.com/knbtechnosys/Javaproject_6pm.git'
+            }
+            
+        }
+        
+    stage('mvn build'){
+            steps{
+                sh 'mvn install'
+            }
+                    }
+                    
+    stage('docker build'){
+        steps{
+        sh 'docker build -t nbktechnosys/javaproject .'
+        }
+    }
+    }
+}
