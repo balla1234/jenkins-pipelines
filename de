@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+    tools {
+       maven 'mymaven'
+        }
+        
+        environment {
+         DOCKER_TAG = getVersion()
+                }
+                
+        stages{
+            stage('SCM'){
+                steps{
+                    git branch: 'main', url: 'https://github.com/knbtechnosys/Javaproject_6pm.git'
+                }
+            }
+            stage('maven'){
+                steps{
+                    sh 'mvn install'
+                }
+            }
+            stage('docker build'){
+                steps{
+                    sh 'docker build -t nbktechnosys/jenkinsbuild:0.1 . '
+                }
+            }
+            
+        }
+}
+
+def getVersion(){
+    def commitid = sh label:'',returnStdout: true, script: ' git rev-parse --short HEAD'
+    retrun commitid
+}
